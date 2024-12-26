@@ -6,12 +6,19 @@ from joblib import load
 # Carga el modelo
 model = load('carmeter_rf_model.joblib')
 
-# Título de la aplicación
+# Título y logo de la aplicación
+st.image("img/carmeter.png", use_container_width=True)  # Se cambió a use_container_width
 st.title("CarMeter")
+st.markdown(
+    """
+    Bienvenido a **CarMeter**, la herramienta que te ayuda a predecir el precio de venta de vehículos usados 
+    utilizando técnicas avanzadas de aprendizaje automático.
+    """
+)
 
-st.markdown("""
-Esta aplicación utiliza un modelo de aprendizaje automático para predecir con precisión el precio de venta de vehículos usados basado en características como la marca, el modelo, el año, el kilometraje, y más.
-""")
+# Mejorar la visualización con separadores y subtítulos
+st.markdown("---")
+st.subheader("Información del Vehículo")
 
 # Diccionario para codificar tipos de combustible
 fuel_encoding = {
@@ -31,6 +38,9 @@ transmission_encoding = {
 
 # Formulario de entrada
 def user_input_features():
+    st.sidebar.header("Entrada de datos")
+    st.sidebar.markdown("Completa los detalles del vehículo para obtener el precio estimado.")
+
     brand = st.sidebar.text_input("Marca", "Toyota")
     model = st.sidebar.text_input("Modelo", "Corolla")
     year = st.sidebar.slider("Año de Fabricación", 2000, 2023, 2015)
@@ -66,10 +76,13 @@ def user_input_features():
 input_df = user_input_features()
 
 # Mostrar datos de entrada procesados
-st.subheader("Datos de entrada")
+st.markdown("---")
+st.subheader("Datos Ingresados")
 st.write(input_df)
 
 # Predicción
+st.markdown("---")
+st.subheader("Resultado de la Predicción")
 if st.button("Predecir"):
     # Alinear columnas con las del modelo entrenado
     expected_columns = [
@@ -83,4 +96,8 @@ if st.button("Predecir"):
 
     # Realizar predicción
     prediction = model.predict(input_df)
-    st.write(f"El precio estimado de venta es: ${prediction[0]:,.2f}")
+    st.success(f"El precio estimado de venta es: **{prediction[0]:,.2f}€**")
+
+# Pie de página
+st.markdown("---")
+st.markdown("Desarrollo de Aplicación Web con Modelo Integrado - CarMeter")
