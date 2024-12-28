@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from joblib import load
+import requests
+from image_reading import extract_plate_text
 
 # Carga el modelo
 model = load('carmeter_rf_model.joblib')
@@ -41,9 +43,46 @@ def user_input_features():
     st.sidebar.header("Entrada de datos")
     st.sidebar.markdown("Completa los detalles del vehículo para obtener el precio estimado.")
 
+    # Año predeterminado
+    resultado = 2015
+
+    # Añadir campo para cargar imagen
+    uploaded_file = st.file_uploader("Elige una imagen de la matrícula...", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        # Guardar la imagen subida en un archivo temporal
+        with open("temp_image.png", "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        
+        # Llamar a la función para extraer el texto de la matrícula
+        plate_text = extract_plate_text("temp_image.png")
+        st.image("temp_image.png", caption='Imagen subida', use_column_width=True)
+        st.write(f"Texto de la matrícula: {plate_text}")
+
+        # URL del endpoint
+        url = "https://www.autoresiduos.com/garisapi2public.dll"
+
+        # Parámetros necesarios
+        params = {
+            "id": "getm",  # Identificador del servicio
+            "m": plate_text,  # Matrícula
+        }
+
+        # Realizar la solicitud POST
+        response = requests.post(url, params=params)
+
+        # Verificar si la solicitud fue exitosa
+        if response.status_code == 200:
+            # Procesar la respuesta (en este caso, texto plano)
+            resultado = response.text.strip()
+            resultado = int(resultado[-4:])  # Extraer los últimos 4 caracteres
+            st.write(f"Edad de la matrícula: {resultado}")
+        else:
+            st.write("Error al conectar con la página:", response.status_code)
+
     brand = st.sidebar.text_input("Marca", "Toyota")
     model = st.sidebar.text_input("Modelo", "Corolla")
-    year = st.sidebar.slider("Año de Fabricación", 2000, 2023, 2015)
+    year = st.sidebar.slider("Año de Fabricación", 2000, 2023, resultado)
     km_driven = st.sidebar.number_input("Kilómetros recorridos", 0, 300000, 50000)
     engine = st.sidebar.number_input("Capacidad del motor (en cc)", 800, 5000, 1500)
     max_power = st.sidebar.number_input("Potencia máxima (en bhp)", 50, 500, 100)

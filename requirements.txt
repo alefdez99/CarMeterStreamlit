@@ -4,3 +4,6 @@ pandas
 numpy
 joblib
 matplotlib
+requests
+opencv-python
+pytesseract
