@@ -4,6 +4,11 @@
 
 CarMeter es una aplicación de aprendizaje automático diseñada para predecir con precisión el precio de venta de vehículos usados. Los usuarios pueden ingresar información clave sobre el vehículo, como la marca, el modelo, el año, el kilometraje, el tipo de combustible y la transmisión, y la aplicación proporcionará una estimación del precio basado en un modelo preentrenado.
 
+## Hecho por:
+   * Pablo García Muñoz
+   * Alejandro Fernandez Barrionuevo
+   * Borja Bravo Casemiro
+
 ## Características
 - Predicción basada en características clave del vehículo.
 - Fácil de usar con una interfaz web construida en Streamlit.
