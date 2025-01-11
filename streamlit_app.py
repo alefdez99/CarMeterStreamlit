@@ -56,7 +56,7 @@ def user_input_features():
         
         # Llamar a la función para extraer el texto de la matrícula
         plate_text = extract_plate_text("temp_image.png")
-        st.image("temp_image.png", caption='Imagen subida', use_column_width=True)
+        st.image("temp_image.png", caption='Imagen subida', use_container_width=True)
         st.write(f"Texto de la matrícula: {plate_text}")
 
         # URL del endpoint
@@ -140,3 +140,6 @@ if st.button("Predecir"):
 # Pie de página
 st.markdown("---")
 st.markdown("Desarrollo de Aplicación Web con Modelo Integrado - CarMeter")
+st.markdown("© [Pablo García Muñoz](https://www.linkedin.com/in/pablo-garc%C3%ADa-mu%C3%B1oz-a9b2402a9/), [Alejandro Fernandez Barrionuevo](https://github.com/alefdez99) y [Borja Bravo Casemiro](https://www.linkedin.com/in/borja-bravo-casermeiro-75a524292/) - CPIFP Alan Turing")
+
+
