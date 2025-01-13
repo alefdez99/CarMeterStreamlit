@@ -26,5 +26,9 @@ def extract_plate_text(image_path):
     
     # Filtrar el texto para obtener solo la matrícula
     #plate_text = re.findall(r'[A-Z0-9]{2,}', plate_text)
+
+    # Obtener los últimos 7 caracteres
+    if (len(plate_text) > 10):
+        plate_text = plate_text[-9:]
     
     return plate_text if plate_text else "No se encontró matrícula"
