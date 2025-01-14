@@ -79,7 +79,7 @@ def user_input_features():
         if response.status_code == 200:
             # Procesar la respuesta (en este caso, texto plano)
             resultado = response.text.strip()
-            st.write("Edad de la matrícula (año de fabricación):", resultado)
+
             resultado = int(resultado[-4:])  # Extraer los últimos 4 caracteres
             st.write(f"Edad de la matrícula: {resultado}")
         else:
