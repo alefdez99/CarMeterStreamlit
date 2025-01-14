@@ -40,3 +40,6 @@ CarMeter es una aplicación de aprendizaje automático diseñada para predecir c
 * Consumo de combustible (km/l)
 * Tipo de Combustible
 * La aplicación mostrará una estimación del precio del vehículo basado en el modelo preentrenado.
+
+## Enlace a la Aplicación
+Accede a CarMeter en Streamlit: https://carmeterapp.streamlit.app/
