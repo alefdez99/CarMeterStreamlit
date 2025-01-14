@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     libtesseract-dev \
     libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
-COPY requirements.txt .
+COPY . .
 RUN pip install -r requirements.txt
 #EXPOSE 8501
 ENTRYPOINT ["streamlit", "run", "streamlit_app.py"]
