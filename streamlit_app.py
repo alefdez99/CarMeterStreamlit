@@ -58,8 +58,7 @@ def user_input_features():
         plate_text = extract_plate_text("temp_image.png")
         st.image("temp_image.png", caption='Imagen subida', use_container_width=True)
         st.write(f"Texto de la matrícula: {plate_text}")
-        plate_text = plate_text[-5:]  # Extraer los últimos 3 caracteres
-        st.write(f"Matrícula: {plate_text}")
+        #plate_text = plate_text[-5:]  # Extraer los últimos 3 caracteres
         plate_text = "5555 " + plate_text  # Añadir 5555 al principio para completar la matrícula
         st.write(f"Matrícula completa: {plate_text}")
 
