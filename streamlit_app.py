@@ -5,19 +5,31 @@ from joblib import load
 import requests
 from image_reading import extract_plate_text
 import re
+import pathlib
+
+# Función para cargar el fichero CSS
+def cagar_css(path):
+    with open(path) as f:
+        st.html(f"<style>{f.read()}</style>")
+
+# Carga el CSS
+path = pathlib.Path("assets/styles.css")
+cagar_css(path)
 
 # Carga el modelo
 model = load('carmeter_rf_model.joblib')
 
 # Título y logo de la aplicación
-st.image("img/carmeter.png", use_container_width=True)  # Se cambió a use_container_width
-st.title("CarMeter")
-st.markdown(
-    """
-    Bienvenido a **CarMeter**, la herramienta que te ayuda a predecir el precio de venta de vehículos usados 
-    utilizando técnicas avanzadas de aprendizaje automático.
-    """
-)
+c = st.container(key="header")
+with c:
+    st.image("img/carmeter.png", use_container_width=True)  # Se cambió a use_container_width
+    st.title("CarMeter")
+    st.markdown(
+        """
+        Bienvenido a **CarMeter**, la herramienta que te ayuda a predecir el precio de venta de vehículos usados 
+        utilizando técnicas avanzadas de aprendizaje automático.
+        """
+    )
 
 # Mejorar la visualización con separadores y subtítulos
 st.markdown("---")
@@ -87,7 +99,7 @@ def user_input_features():
     st.sidebar.markdown("Completa los detalles del vehículo para obtener el precio estimado.")
 
     brand = st.sidebar.text_input("Marca", "Toyota")
-    model = st.sidebar.text_input("Modelo", "Corolla")
+    model = st.sidebar.text_input("Modelo", "Corolla", key="input")
     year = st.sidebar.slider("Año de Fabricación", 2000, 2023, resultado)
     km_driven = st.sidebar.number_input("Kilómetros recorridos", 0, 300000, 50000)
     engine = st.sidebar.number_input("Capacidad del motor (en cc)", 800, 5000, 1500)
@@ -128,7 +140,7 @@ st.write(input_df)
 # Predicción
 st.markdown("---")
 st.subheader("Resultado de la Predicción")
-if st.button("Predecir"):
+if st.button("Predecir", key="green-hover"):
     # Alinear columnas con las del modelo entrenado
     expected_columns = [
         'year', 'km_driven', 'engine', 'max_power', 'mileage',

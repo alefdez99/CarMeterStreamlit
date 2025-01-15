@@ -1,0 +1,27 @@
+/* Estilos generales */
+
+.st-key-header {
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.75), /* Ajusta el último número (0.8) para cambiar la opacidad */
+            rgba(0, 0, 0, 0.75)
+        ),
+        url("https://images8.alphacoders.com/127/1279579.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Botones */
+.stButton > button {
+    background-color: #1684AB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.stButton > button:hover {
+    background-color: #092f3d;
+    color: #f0f0f0;
+}
