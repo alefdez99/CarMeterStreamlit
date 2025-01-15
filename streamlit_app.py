@@ -39,51 +39,52 @@ transmission_encoding = {
     "Automática": 1,
 }
 
+# Año predeterminado
+resultado = 2015
+
+# Añadir campo para cargar imagen
+uploaded_file = st.file_uploader("Elige una imagen de la matrícula...", type=["jpg", "jpeg", "png"])
+
+# Carga de la imagen
+if uploaded_file is not None:
+    # Guardar la imagen subida en un archivo temporal
+    with open("temp_image.png", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    # Llamar a la función para extraer el texto de la matrícula
+    plate_text = extract_plate_text("temp_image.png")
+    st.image("temp_image.png", caption='Imagen subida', use_container_width=True)
+
+    # Eliminar números del texto de la matrícula
+    plate_text = re.sub(r'\d', '', plate_text)
+    plate_text = "5555 " + plate_text  # Añadir 5555 al principio para completar la matrícula
+
+    # URL del endpoint
+    url = "https://www.autoresiduos.com/garisapi2public.dll"
+
+    # Parámetros necesarios
+    params = {
+        "id": "getm",  # Identificador del servicio
+        "m": plate_text,  # Matrícula
+    }
+
+    # Realizar la solicitud POST
+    response = requests.post(url, params=params)
+
+    # Verificar si la solicitud fue exitosa
+    if response.status_code == 200:
+        # Procesar la respuesta (en este caso, texto plano)
+        resultado = response.text.strip()
+
+        resultado = int(resultado[-4:])  # Extraer los últimos 4 caracteres
+        st.write(f"Edad de la matrícula: {resultado}")
+    else:
+        st.write("Error al conectar con la página:", response.status_code)
+
 # Formulario de entrada
 def user_input_features():
     st.sidebar.header("Entrada de datos")
     st.sidebar.markdown("Completa los detalles del vehículo para obtener el precio estimado.")
-
-    # Año predeterminado
-    resultado = 2015
-
-    # Añadir campo para cargar imagen
-    uploaded_file = st.file_uploader("Elige una imagen de la matrícula...", type=["jpg", "jpeg", "png"])
-
-    if uploaded_file is not None:
-        # Guardar la imagen subida en un archivo temporal
-        with open("temp_image.png", "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        
-        # Llamar a la función para extraer el texto de la matrícula
-        plate_text = extract_plate_text("temp_image.png")
-        st.image("temp_image.png", caption='Imagen subida', use_container_width=True)
-
-        # Eliminar números del texto de la matrícula
-        plate_text = re.sub(r'\d', '', plate_text)
-        plate_text = "5555 " + plate_text  # Añadir 5555 al principio para completar la matrícula
-
-        # URL del endpoint
-        url = "https://www.autoresiduos.com/garisapi2public.dll"
-
-        # Parámetros necesarios
-        params = {
-            "id": "getm",  # Identificador del servicio
-            "m": plate_text,  # Matrícula
-        }
-
-        # Realizar la solicitud POST
-        response = requests.post(url, params=params)
-
-        # Verificar si la solicitud fue exitosa
-        if response.status_code == 200:
-            # Procesar la respuesta (en este caso, texto plano)
-            resultado = response.text.strip()
-
-            resultado = int(resultado[-4:])  # Extraer los últimos 4 caracteres
-            st.write(f"Edad de la matrícula: {resultado}")
-        else:
-            st.write("Error al conectar con la página:", response.status_code)
 
     brand = st.sidebar.text_input("Marca", "Toyota")
     model = st.sidebar.text_input("Modelo", "Corolla")
@@ -145,6 +146,6 @@ if st.button("Predecir"):
 # Pie de página
 st.markdown("---")
 st.markdown("Desarrollo de Aplicación Web con Modelo Integrado - CarMeter")
-st.markdown("© [Pablo García Muñoz](https://www.linkedin.com/in/pablo-garc%C3%ADa-mu%C3%B1oz-a9b2402a9/), [Alejandro Fernandez Barrionuevo](https://github.com/alefdez99) y [Borja Bravo Casemiro](https://www.linkedin.com/in/borja-bravo-casermeiro-75a524292/) - CPIFP Alan Turing")
+st.markdown("© [Pablo García Muñoz](https://www.linkedin.com/in/pablo-garc%C3%ADa-mu%C3%B1oz-a9b2402a9/), [Alejandro Fernández Barrionuevo](https://github.com/alefdez99) y [Borja Bravo Casemiro](https://www.linkedin.com/in/borja-bravo-casermeiro-75a524292/) - CPIFP Alan Turing")
 
 

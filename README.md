@@ -6,7 +6,7 @@ CarMeter es una aplicación de aprendizaje automático diseñada para predecir c
 
 ## Hecho por:
    * Pablo García Muñoz
-   * Alejandro Fernandez Barrionuevo
+   * Alejandro Fernández Barrionuevo
    * Borja Bravo Casemiro
 
 ## Características
