@@ -1,27 +1,60 @@
 /* Estilos generales */
+[data-testid="stAppViewContainer"] {
+    background-color: #0f1b24;
+    color: white;
+}
 
-.st-key-header {
-    background: linear-gradient(
-            rgba(0, 0, 0, 0.75), /* Ajusta el último número (0.8) para cambiar la opacidad */
-            rgba(0, 0, 0, 0.75)
-        ),
-        url("https://images8.alphacoders.com/127/1279579.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+/* Color de fondo del sidebar */
+[data-testid="stSidebar"] {
+    background-color: #10212f;
+    padding-top: 2rem;
+    color: white;
+}
+
+[data-testid="stSidebar"] .stImage {
+    margin-left: 5rem;
 }
 
 /* Botones */
 .stButton > button {
-    background-color: #1684AB;
     color: white;
-    border: none;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-color: white;
     transition: background-color 0.3s;
 }
 
 .stButton > button:hover {
-    background-color: #092f3d;
-    color: #f0f0f0;
+    background-color: #FF4B4B;
+    border-color: white;
+    color: white;
+}
+
+/* Inputs */
+.stNumberInput input, .stNumberInput p, .stTextInput input, .stTextInput p {
+    color: white;
+}
+
+/* Selectbox */
+.stSelectbox p, .stSelectbox select {
+    color: white;
+}
+
+[data-baseweb="select"] > div {
+    color: white;
+}
+
+[data-baseweb="popover"] * {
+    color: white;
+}
+
+/* File uploader button */
+.stFileUploader button:hover {
+    color: white;
+    border-color: white;
+    transition: background-color 0.3s;
+}
+.stFileUploader button:hover {
+    background-color: #FF4B4B;
+    border-color: white;
+    color: white;
 }

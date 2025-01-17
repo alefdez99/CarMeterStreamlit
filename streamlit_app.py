@@ -95,6 +95,7 @@ if uploaded_file is not None:
 
 # Formulario de entrada
 def user_input_features():
+    st.sidebar.image("img/carmeter_logo.png", width=120)
     st.sidebar.header("Entrada de datos")
     st.sidebar.markdown("Completa los detalles del vehículo para obtener el precio estimado.")
 
